@@ -5,28 +5,27 @@
         <p>Dear DTT,</p>
         <p>
           Before we get started, I want to thank you for your interest in me. It
-          really means a lot to me and I am truly grateful for the opportunity
-          you gave me to prove myself.
+          really means a lot to me and I am grateful for this opportunity.
         </p>
         <p>
-          I did not have a lot of experience with Vue before, but I liked
-          working with it a lot. The simplicity of this framework truly
+          Although I did not have a lot of experience with Vue before, I managed
+          to get used to it quickly. The simplicity of this framework truly
           fascinates me, especially if you compare it to other client-side
           frameworks like react or angular.
         </p>
         <p>
           Most of the features and designs in this application were made up
-          on-the-go while I was trying to learn about Vue and implement all the
-          requirements for the test. I purposely changed between stylings a bit
-          to show you my ability to handle different situations. I really hope
-          that the application I made is sufficient and that it shows that I am
-          capable of working for such an inspiring company like DTT.
+          on-the-go while I was implementing the requirements for the test and
+          getting familiar with Vue. I purposely changed between stylings a bit
+          to show you my ability to handle different situations. I hope that the
+          application I made is sufficient and that it shows that I have the
+          capabilities to work for such an inspiring company as DTT.
         </p>
         <p>
           I tried to avoid using external (styling) libraries to give you the
           most accurate representation of my own skills. I also used Vue 3 (I
-          really love the new composition api) and implemented more advanced
-          features like a dynamic layout and a store with Vuex 4 to show you
+          really dig the new composition api) and implemented more advanced
+          features such as a dynamic layout and a store with Vuex 4 to show you
           that I really dived into it.
         </p>
       </section>
@@ -143,7 +142,7 @@ $linkColor: rgba(131, 77, 156);
       margin: 30px 0 30px 0;
     }
 
-    @media (max-width: 440px) {
+    @media (max-width: 760px) {
       margin-top: 100px;
     }
   }
