@@ -1,8 +1,17 @@
-import { createStore } from "vuex";
+import Vuex from "vuex";
 
-export default createStore({
-  state: {},
-  mutations: {},
-  actions: {},
-  modules: {}
+const store = new Vuex.Store({
+  state: {
+    menuIsOpen: false
+  },
+  mutations: {
+    openMenu(state) {
+      state.menuIsOpen = true;
+    },
+    closeMenu(state) {
+      state.menuIsOpen = false;
+    }
+  }
 });
+
+export default store;
