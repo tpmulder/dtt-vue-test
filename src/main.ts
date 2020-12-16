@@ -2,7 +2,6 @@ import { createApp } from "vue";
 import App from "./App.vue";
 import router from "./router";
 import store from "./store";
-import vueScrollTo from "vue-scrollto";
 
 import { library } from "@fortawesome/fontawesome-svg-core";
 import {
@@ -19,6 +18,5 @@ library.add(faChevronRight);
 createApp(App)
   .use(store)
   .use(router)
-  .use(vueScrollTo)
   .component("fa-icon", FontAwesomeIcon)
   .mount("#app");
