@@ -25,7 +25,7 @@
       <footer id="footer" :style="footerStyles">
         <div class="footer-content">
           <div>at least a</div>
-          <router-link to="/sitemap"><button class="sitemap-button head-text">Generated sitemap</button></router-link>
+          <router-link to="/sitemap" @click="() => scrollTop()"><button class="sitemap-button head-text">Generated sitemap</button></router-link>
         </div>
       </footer>
     </div>
@@ -55,6 +55,8 @@ export default defineComponent({
     const sideMenuWidth = `${200}px`;
     const footerHeight = `${200}px`;
 
+    const scrollTop = document.getElementById('app-layout')?.scrollIntoView();
+
     const mainStyles = {
       height: `calc(100vh - ${navBarHeight})`,
       overflowY: "scroll",
@@ -76,7 +78,8 @@ export default defineComponent({
       sideMenuIsOpen,
       toggleMenu,
       mainContentStyles,
-      footerStyles
+      footerStyles,
+      scrollTop
     };
   }
 });

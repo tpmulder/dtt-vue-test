@@ -18,6 +18,8 @@ export default defineComponent({
     setup() {
         const sitemap = new VueRouterSitemap(router).build('http://example.com');
 
+        document.getElementById("sitemap")
+
         return {
             routes: sitemap.paths
         }
