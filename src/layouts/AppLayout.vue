@@ -25,7 +25,7 @@
       <footer id="footer" :style="footerStyles">
         <div class="footer-content">
           <div>at least a</div>
-          <button class="sitemap-button head-text">sitemap</button>
+          <button class="sitemap-button head-text">Generated sitemap</button>
         </div>
       </footer>
     </div>
