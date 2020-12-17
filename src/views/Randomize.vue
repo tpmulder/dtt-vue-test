@@ -81,6 +81,7 @@ export default defineComponent({
     };
 
     onMounted(async () => {
+      // nasty.. don't try this at home!!
       randomizer.total = (await CharacterService.getAll()).length;
       await setCharacter();
     });

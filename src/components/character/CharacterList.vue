@@ -144,6 +144,8 @@ export default defineComponent({
 
     onMounted(async () => {
       await getPaged(currentPage.value, 10);
+
+      // nasty.. don't try this at home!!
       maxPage.value = (await CharacterService.getAll()).length / pageSize.value;
 
       getSortedList(filterCategory.value);
