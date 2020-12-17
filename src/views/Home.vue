@@ -48,12 +48,7 @@
         <div class="devider"></div>
         <div class="developer-choice api">
           <p>API:</p>
-          <a
-            class="head-text api-link"
-            alt="final space api"
-            href="url(https://finalspaceapi.com/)"
-            >https://finalspaceapi.com</a
-          >
+          <div class="head-text api-link" @click="() => goToApi()">https://finalspaceapi.com</div>
           <div class="api-description">
             <p>
               Final space is an animated series on Netflix. I chose this api
@@ -147,13 +142,15 @@ export default defineComponent({
     const openMenu = () => store.commit("openMenu");
     const devSectIsOpen = ref(false);
 
-    const scrollToFooter = () =>
-      document.getElementById("footer")?.scrollIntoView();
+    const scrollToFooter = () => document.getElementById("footer")?.scrollIntoView();
+
+    const goToApi = () => window.open('https://finalspaceapi.com/', '_blank');
 
     return {
       openMenu,
       scrollToFooter,
-      devSectIsOpen
+      devSectIsOpen,
+      goToApi
     };
   }
 });
@@ -216,6 +213,7 @@ $linkColor: rgba(131, 77, 156);
         text-decoration: none;
         margin-bottom: 10px;
         color: $linkColor;
+        cursor: pointer;
       }
 
       .api-description {
