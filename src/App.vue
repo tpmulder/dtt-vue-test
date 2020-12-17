@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <component :is="layout">
-      <router-view />
+      <router-view :layout="layout" />
     </component>
   </div>
 </template>
@@ -13,6 +13,7 @@ import AppLayout from "@/layouts/AppLayout.vue";
 export default defineComponent({
   components: AppLayout,
   setup() {
+
     return {
       layout: AppLayout
     };

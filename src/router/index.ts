@@ -1,4 +1,4 @@
-import { createRouter, createWebHashHistory, RouteRecordRaw } from "vue-router";
+import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
 import Home from "../views/Home.vue";
 
 const routes: Array<RouteRecordRaw> = [
@@ -22,16 +22,21 @@ const routes: Array<RouteRecordRaw> = [
     name: "Character",
     component: () => import("../views/Character.vue"),
     props: route => {
-      const id = Number.parseInt(route.params.id as string, 10);
-      if (Number.isNaN(id)) return 1;
+      let id = Number.parseInt(route.params.id as string, 10);
+      if (Number.isNaN(id)) id = 1;
 
       return { id };
     }
+  },
+  {
+    path: "/sitemap",
+    name: "Sitemap",
+    component: () => import("../views/SiteMap.vue")
   }
 ];
 
 const router = createRouter({
-  history: createWebHashHistory(),
+  history: createWebHistory(),
   routes
 });
 

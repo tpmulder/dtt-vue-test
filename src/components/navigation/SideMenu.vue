@@ -45,7 +45,7 @@ export default defineComponent({
       sideMenuStyles,
       openedStyles,
       routes: router.getRoutes().filter(e => {
-        if (!e.path.includes(":")) return e;
+        if (!e.path.includes(":") && !e.path.includes("sitemap")) return e;
       })
     };
   }

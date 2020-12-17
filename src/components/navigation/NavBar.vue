@@ -35,7 +35,7 @@ export default defineComponent({
     return {
       navBarStyles,
       routes: router.getRoutes().filter(e => {
-        if (!e.path.includes(":")) return e;
+        if (!e.path.includes(":") && !e.path.includes("sitemap")) return e;
       })
     };
   }

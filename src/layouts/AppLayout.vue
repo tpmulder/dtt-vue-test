@@ -7,7 +7,7 @@
       :isOpen="sideMenuIsOpen"
     />
     <button
-      v-on:click="toggleMenu"
+      @click="toggleMenu"
       :class="[{ 'is-open': sideMenuIsOpen }, 'menu-button']"
     >
       <fa-icon icon="arrow-right" />
@@ -25,7 +25,7 @@
       <footer id="footer" :style="footerStyles">
         <div class="footer-content">
           <div>at least a</div>
-          <button class="sitemap-button head-text">Generated sitemap</button>
+          <router-link to="/sitemap"><button class="sitemap-button head-text">Generated sitemap</button></router-link>
         </div>
       </footer>
     </div>
