@@ -1,18 +1,17 @@
 <template>
   <div id="nav-bar" :style="navBarStyles">
-    <router-link to="/">
-      <img class="logo" src="@/assets/Final_Space_Logo.png" />
+    <router-link path="Home" to="/">
+      <img class="logo" alt="logo" src="@/assets/Final_Space_Logo.png" />
     </router-link>
-    <div class="toolbar">
-      <div class="routes">
-        <router-link
-          v-for="route in routes"
-          :key="route"
-          class="fs-route"
-          :to="route.path"
-          ><button>{{ route.name }}</button></router-link
-        >
-      </div>
+    <div class="container toolbar">
+      <router-link
+        v-for="route in routes"
+        :key="route"
+        :class="[{ important: route.name === 'Feedback' }, 'btn route-button']"
+        :to="route.path"
+      >
+        {{ route.name }}
+      </router-link>
     </div>
   </div>
 </template>
@@ -22,6 +21,7 @@ import { defineComponent } from "vue";
 import router from "@/router";
 
 export default defineComponent({
+  name: "NavBar",
   props: {
     height: {
       type: String
@@ -34,24 +34,54 @@ export default defineComponent({
 
     return {
       navBarStyles,
-      routes: router.getRoutes().filter(e => {
-        if (!e.path.includes(":") && !e.path.includes("sitemap")) return e;
-      })
+      routes: router
+        .getRoutes()
+        // don't include dynamic routes & sitemap
+        .filter(e => !e.path.includes(":") && !e.path.includes("sitemap"))
     };
   }
 });
 </script>
 
 <style lang="scss" scoped>
+$important-color: #ff4500;
+
 #nav-bar {
   display: flex;
   align-items: center;
   z-index: 50;
-  position: fixed;
   width: 100vw;
-  background: rgba(38, 32, 84);
+  background: $primary-color;
   padding: 10px 20px 10px 20px;
-  box-shadow: 0 0 10px 0 black;
+  box-shadow: 0 0 10px 0 $primary-color;
+
+  .route-button {
+    padding: 5px 10px 5px 10px;
+    text-decoration: none;
+    margin: 0 10px 0 10px;
+    border-radius: 50px;
+    background: $primary-color;
+    color: $secondary-color;
+    border: 2px solid $secondary-color;
+
+    &.important {
+      animation: pulse 2s ease-in-out infinite;
+
+      &:hover,
+      &.router-link-active {
+        animation: none;
+        background: $important-color;
+        box-shadow: 0 0 20px $important-color;
+        border-color: $primary-color;
+      }
+    }
+
+    &:hover,
+    &.router-link-active {
+      background: $secondary-color;
+      color: $primary-color;
+    }
+  }
 
   .logo {
     height: 70px;
@@ -60,27 +90,21 @@ export default defineComponent({
     margin-right: 20px;
   }
 
-  .toolbar {
-    display: flex;
-    justify-content: center;
-    width: 100%;
-
-    .routes {
-      display: flex;
-      height: 100%;
-      justify-content: center;
-      align-items: center;
-    }
-  }
-}
-
-@media (max-width: 760px) {
-  #nav-bar {
+  @media (max-width: $tablet) {
     justify-content: center;
 
     .toolbar {
       display: none;
     }
+  }
+}
+
+@keyframes pulse {
+  50% {
+    background: $important-color;
+    color: $primary-color;
+    box-shadow: 0 0 20px $important-color;
+    border-color: $primary-color;
   }
 }
 </style>

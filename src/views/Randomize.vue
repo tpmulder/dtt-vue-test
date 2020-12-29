@@ -1,29 +1,26 @@
 <template>
-  <div id="randomize">
-    <div class="fs-container">
-      <div class="fs-container-header head-text">
+  <div id="randomize" class="container page">
+    <div class="container box">
+      <div class="box-header">
         Random character
       </div>
-      <div class="fs-container-content">
-        <div class="lds-ring" v-if="randomizer.isLoading">
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-        </div>
-        <div class="error" v-else-if="randomizer.error != undefined">
-          Congrats! You ruined it!<br />(Choose an id between 0 and 41)
-        </div>
-        <div class="random-content" v-else>
-          <div class="flip-card">
-            <div class="flip-card-inner"></div>
-            <CharacterCard :character="randomizer.character" />
+      <div class="box-content">
+        <loading-wrapper
+          :isLoading="loadingState.isLoading.GET_RANDOM"
+          :error="loadingState.error"
+        >
+          <div>
+            <character-card
+              v-if="random != null"
+              class="random-content"
+              :character="random"
+            />
           </div>
-        </div>
+        </loading-wrapper>
       </div>
     </div>
-    <div class="button-container">
-      <button @click="() => setCharacter()" class="randomize-button head-text">
+    <div class="container">
+      <button @click="randomize" class="btn randomize-button">
         <span>Randomize</span>
       </button>
     </div>
@@ -32,16 +29,10 @@
 
 <script lang="ts">
 import Character from "@/models/character";
-import CharacterService from "@/services/CharacterService";
 import CharacterCard from "@/components/character/CharacterCard.vue";
-import {
-  computed,
-  ComputedRef,
-  defineComponent,
-  onMounted,
-  reactive,
-  ref
-} from "vue";
+import { computed, defineComponent, onMounted, ref } from "vue";
+import { StoreActionTypes, useTypedStore } from "@/store";
+import LoadingWrapper from "@/components/common/LoadingWrapper.vue";
 
 type CharacterList = {
   character: Character | null;
@@ -54,41 +45,27 @@ type CharacterList = {
 export default defineComponent({
   name: "Randomize",
   components: {
-    CharacterCard
+    CharacterCard,
+    LoadingWrapper
   },
   setup() {
-    const randomizer: CharacterList = reactive<CharacterList>({
-      character: null,
-      total: 0,
-      randomIndex: computed<number>(() =>
-        Math.round(Math.random() * randomizer.total)
-      ) as any,
-      isLoading: true,
-      error: null
-    });
+    // Get store & needed values
+    const store = useTypedStore();
+    const loadingState = computed(() => store.getters.getLoadingState);
+    const random = ref<Character | null>(null);
 
-    const setCharacter = async () => {
-      try {
-        randomizer.isLoading = true;
-
-        const r = Math.round(Math.random() * randomizer.total);
-        randomizer.character = await CharacterService.getById(r === 0 ? 1 : r);
-      } catch (err) {
-        randomizer.error = err;
-      } finally {
-        randomizer.isLoading = false;
-      }
+    const randomize = async () => {
+      random.value = await store.dispatch(StoreActionTypes.GET_RANDOM);
     };
 
     onMounted(async () => {
-      // nasty.. don't try this at home!!
-      randomizer.total = (await CharacterService.getAll()).length;
-      await setCharacter();
+      await randomize();
     });
 
     return {
-      randomizer,
-      setCharacter
+      random,
+      loadingState,
+      randomize
     };
   }
 });
@@ -96,18 +73,12 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 $radius: 100px;
-$c1: rgba(8, 9, 39);
-$c2: rgba(153, 133, 207);
 
 #randomize {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-
-  .button-container {
-    flex-basis: 100%;
+  .container {
+    &.box {
+      max-width: 800px;
+    }
   }
 
   .random-content {
@@ -118,69 +89,37 @@ $c2: rgba(153, 133, 207);
     position: relative;
     padding: $radius;
     border-radius: 50%;
-    background: linear-gradient(25deg, $c2, $c1);
+    background: linear-gradient(25deg, $secondary-color, $color-4);
     animation: pulse 2s linear infinite;
-    transition: all 2s ease-in-out;
-    border: 1px solid $c2;
+    border: 1px solid $secondary-color;
     cursor: pointer;
 
     span {
       position: absolute;
       top: 50%;
       left: 50%;
+      font-family: $head-font;
       transform: translate(-50%, -50%);
       font-size: 1.5rem;
-      color: whitesmoke;
-      text-shadow: 0 0 10px $c1;
+      color: $text-light;
+      text-shadow: 0 0 10px $color-4;
     }
 
     &:hover {
       span {
-        color: $c2;
+        color: $secondary-color;
       }
     }
 
     &:focus {
       outline: none;
     }
-  }
 
-  .fs-container {
-    display: flex;
-    width: 800px;
-    flex-wrap: wrap;
-    justify-content: center;
-    margin: 10px;
-    padding: 10px;
-    background: rgba(38, 30, 85);
-    border: 3px solid rgba(133, 77, 156);
-    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
+    @media (max-width: $tablet) {
+      padding: $radius / 1.5;
 
-    .fs-container-header {
-      width: 100%;
-      color: whitesmoke;
-      border-bottom: 3px solid rgba(133, 77, 156);
-      border-radius: 50%;
-      box-shadow: 0 5px 5px 0 #080927;
-      padding: 10px;
-      z-index: 5;
-    }
-
-    .fs-container-content {
-      min-height: 325px;
-      margin: 20px;
-      display: flex;
-      width: 100%;
-      flex-wrap: wrap;
-      justify-content: center;
-      background: rgba(8, 9, 39);
-      box-shadow: inset 0 0 500px rgba(38, 30, 85);
-      border: 1px solid rgba(133, 77, 156);
-      border-radius: 20px;
-      align-content: center;
-
-      @media (max-width: 760px) {
-        min-height: 175px;
+      span {
+        font-size: 1rem;
       }
     }
   }
@@ -197,19 +136,19 @@ $c2: rgba(153, 133, 207);
 
 @keyframes pulse {
   0% {
-    box-shadow: 0 0 0 0 $c1;
+    box-shadow: 0 0 0 0 $color-4;
   }
   25% {
-    box-shadow: 0 0 300px ($radius / 2) rgba($c1, 0);
+    box-shadow: 0 0 300px ($radius / 2) rgba($color-4, 0);
   }
   26% {
-    box-shadow: 0 0 0 0 $c1;
+    box-shadow: 0 0 0 0 $color-4;
   }
   46% {
-    box-shadow: 0 0 300px ($radius / 2) rgba($c1, 0);
+    box-shadow: 0 0 300px ($radius / 2) rgba($color-4, 0);
   }
   100% {
-    box-shadow: 0 0 0 0 rgba($c1, 0);
+    box-shadow: 0 0 0 0 rgba($color-4, 0);
   }
 }
 </style>

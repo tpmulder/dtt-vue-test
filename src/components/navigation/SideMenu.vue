@@ -20,6 +20,7 @@ import { defineComponent } from "vue";
 import router from "@/router";
 
 export default defineComponent({
+  name: "SideMenu",
   props: {
     isOpen: {
       type: Boolean
@@ -44,9 +45,10 @@ export default defineComponent({
     return {
       sideMenuStyles,
       openedStyles,
-      routes: router.getRoutes().filter(e => {
-        if (!e.path.includes(":") && !e.path.includes("sitemap")) return e;
-      })
+      routes: router
+        .getRoutes()
+        // don't include dynamic routes & sitemap
+        .filter(e => !e.path.includes(":") && !e.path.includes("sitemap"))
     };
   }
 });
@@ -56,9 +58,9 @@ export default defineComponent({
 #side-menu {
   position: fixed;
   padding: 20px 0 20px 0;
-  background: linear-gradient(rgb(40, 46, 134), rgb(38, 31, 83));
+  background: linear-gradient($color-2, $primary-color);
   color: whitesmoke;
-  box-shadow: 0 0 5px 0 black;
+  box-shadow: 0 0 5px 0 $color-4;
   z-index: 25;
   width: 0;
   transition: all 0.4s ease-in-out 0.2s;
@@ -70,7 +72,7 @@ export default defineComponent({
     text-align: left;
     display: flex;
     flex-wrap: wrap;
-    border-top: 1px solid rgba(38, 31, 83);
+    border-top: 1px solid $primary-color;
 
     a {
       width: 100%;
@@ -80,20 +82,19 @@ export default defineComponent({
 
       &.router-link-active {
         div {
-          background: rgba(38, 31, 83);
+          background: $primary-color;
         }
       }
     }
 
     div {
-      border-bottom: 1px solid rgba(38, 31, 83);
+      border-bottom: 1px solid $primary-color;
       padding: 20px;
       width: 100%;
       transition: all 0.2s ease-in-out;
 
       &:hover {
-        background: rgba(38, 31, 83);
-        transition: all 0.2s ease-in-out;
+        background: $primary-color;
       }
     }
   }

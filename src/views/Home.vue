@@ -1,7 +1,7 @@
 <template>
-  <div id="home">
-    <div class="introduction">
-      <section class="intro-section">
+  <div id="home" class="container">
+    <div class="container view introduction">
+      <section class="text-field justify block">
         <p>Dear DTT,</p>
         <p>
           Before we get started, I want to thank you for your interest in me. It
@@ -27,29 +27,35 @@
           that I really dived into it.
         </p>
       </section>
-      <button
-        @click="() => (devSectIsOpen = !devSectIsOpen)"
-        class="developer-button head-text"
+      <div class="container spacing">
+        <button
+          @click="() => (devSectionIsOpen = !devSectionIsOpen)"
+          class="btn primary-button"
+        >
+          Let's talk tech!
+        </button>
+      </div>
+      <section
+        v-if="devSectionIsOpen"
+        class="dev-section container text-field center block"
       >
-        Let's talk tech!
-      </button>
-      <section v-if="devSectIsOpen" :class="['developer-section']">
-        <h1 class="developer-header head-text">Development choices</h1>
-        <div class="developer-choice fonts">
-          <p>fonts:</p>
-          <span class="head-text">Montserrat</span>
-          <span>Courier Prime</span>
+        <div class="block">
+          <h1 class="head-text">Development choices</h1>
+          <h4 class="spacing">fonts:</h4>
+          <p><span class="head-text">Montserrat</span> & Courier Prime</p>
         </div>
         <div class="devider"></div>
-        <div class="developer-choice colours">
+        <div class="block">
           <p>colour palette:</p>
-          <img class="palette-img" src="../assets/color_palette.png" />
+          <img class="fluid" src="../assets/color_palette.png" />
         </div>
         <div class="devider"></div>
-        <div class="developer-choice api">
-          <p>API:</p>
-          <div class="head-text api-link" @click="() => goToApi()">https://finalspaceapi.com</div>
-          <div class="api-description">
+        <div class="block">
+          <h4 class="spacing">API:</h4>
+          <h2 class="head-text link" @click="() => goToApi()">
+            https://finalspaceapi.com
+          </h2>
+          <div class="text-field justify block">
             <p>
               Final space is an animated series on Netflix. I chose this api
               because it did not require any authorization. This way I was able
@@ -72,260 +78,102 @@
           </div>
         </div>
       </section>
-      <section class="walkthrough">
-        <p class="head-text">Walkthrough: (click on topics)</p>
-        <p><span @click="openMenu" class="walkthrough-link">Menu</span></p>
-        <p class="sub-item">
-          - The menu contains a Home button, <span class="old">categories</span
-          ><span class="replacement">(characters)</span> button and a random
-          button.
-        </p>
-        <p class="sub-item">- Menu is fixed while scrolling.</p>
-        <p>
-          <router-link to="/characters" class="walkthrough-link"
-            ><span class="old">Homepage</span>
-            <span class="replacement">(characterspage)</span></router-link
-          >
-        </p>
-        <p class="sub-item">
-          - The <span class="old">homepage</span>
-          <span class="replacement">(characterspage)</span> shows 10 records
-          from a public API of choice.
-        </p>
-        <p class="sub-item">
-          - All items should be clickable to link to their detailpage.
-        </p>
-        <p class="sub-item">- There must be a sorting option.</p>
-        <p>
-          <router-link to="/character/1" class="walkthrough-link"
-            >Detailpage</router-link
-          >
-        </p>
-        <p class="sub-item">
-          - Shows all the details retrieved from the public API regarding the
-          selected record.
-        </p>
-        <p class="sub-item">
-          - Detail page shows 3 relevant other items on this page based on
-          provided data from the chosen public API.
-        </p>
-        <p>
-          <span @click="scrollToFooter" class="walkthrough-link">Footer</span>
-        </p>
-        <p class="sub-item">
-          - Footer contains at least a generated sitemap. (I had to laugh when I
-          read this requirement for the first time. I created the footer for my
-          application accordingly)
-        </p>
-        <p>
-          <router-link to="/randomize" class="walkthrough-link"
+      <section class="walkthrough text-field block">
+        <h3 class="head-text">Walkthrough: (click on topics)</h3>
+        <div class="sum-up">
+          <span @click="openMenu" class="link">Menu</span>
+          <p>
+            - The menu contains a Home button,
+            <span class="old">categories</span>
+            (characters) button and a random button.
+          </p>
+          <p>- Menu is fixed while scrolling.</p>
+        </div>
+        <div class="sum-up">
+          <router-link to="/characters" class="link">
+            <span class="old">Homepage</span>(characterspage)
+          </router-link>
+          <p>
+            - The <span class="old">homepage</span>(characterspage) shows 10
+            records from a public API of choice.
+          </p>
+          <p>
+            - All items should be clickable to link to their detailpage.
+          </p>
+          <p>- There must be a sorting option.</p>
+        </div>
+        <div class="sum-up">
+          <router-link to="/character/1" class="link">Detailpage</router-link>
+          <p>
+            - Shows all the details retrieved from the public API regarding the
+            selected record.
+          </p>
+          <p>
+            - Detail page shows 3 relevant other items on this page based on
+            provided data from the chosen public API.
+          </p>
+        </div>
+        <div class="sum-up">
+          <span @click="scrollToFooter" class="link">Footer</span>
+          <p>
+            - Footer contains at least a generated sitemap. (I had to laugh when
+            I read this requirement for the first time. I created the footer for
+            my application accordingly)
+          </p>
+        </div>
+        <div class="sum-up">
+          <router-link to="/randomize" class="link"
             >Randomizer page</router-link
           >
-        </p>
-        <p class="sub-item">- Randomizer page shows a random item.</p>
-        <p class="sub-item">
-          - Randomizer page contains a button to show another random item.
-        </p>
+          <p>
+            - Randomizer page shows a random item.
+          </p>
+          <p>
+            - Randomizer page contains a button to show another random item.
+          </p>
+        </div>
       </section>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, ref } from "vue";
-import { useStore } from "vuex";
+import { StoreActionTypes, useTypedStore } from "@/store";
+import { defineComponent, ref } from "vue";
 
 export default defineComponent({
   name: "Home",
   setup() {
-    const store = useStore();
-    const openMenu = () => store.commit("openMenu");
-    const devSectIsOpen = ref(false);
+    const store = useTypedStore();
 
-    const scrollToFooter = () => document.getElementById("footer")?.scrollIntoView();
+    const devSectionIsOpen = ref(false);
 
-    const goToApi = () => window.open('https://finalspaceapi.com/', '_blank');
+    const scrollToFooter = () =>
+      document.getElementById("footer")?.scrollIntoView();
+
+    const goToApi = () => window.open("https://finalspaceapi.com/", "_blank");
+
+    const openMenu = () => store.dispatch(StoreActionTypes.SET_SIDE_MENU, true);
 
     return {
-      openMenu,
       scrollToFooter,
-      devSectIsOpen,
-      goToApi
+      devSectionIsOpen,
+      goToApi,
+      openMenu
     };
   }
 });
 </script>
 
 <style lang="scss" scoped>
-$textColor: rgba(39, 31, 86);
-$linkColor: rgba(131, 77, 156);
-
 #home {
-  width: 100%;
-  min-height: calc(100vh - 75px);
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-  color: $textColor;
-  font-size: 1.1rem;
-  text-align: justify;
-
-  .text-center {
-    text-align: center;
-  }
-
-  .palette-img {
-    max-width: 100%;
-    max-height: 100%;
-  }
-
-  .developer-section {
-    display: flex;
-    flex-wrap: wrap;
-    width: 100%;
-    justify-content: center;
-    animation: fadeIn 1s ease-in-out;
-
-    &.hidden {
-      transform: scale(0);
-      max-height: 600px;
-    }
-
-    .devider {
-      width: 60%;
-      border-bottom: 1px solid $textColor;
-    }
-
-    .developer-choice {
-      display: flex;
-      width: 100%;
-      justify-content: center;
-      flex-wrap: wrap;
-      margin: 15px 0 15px 0;
-
-      p {
-        flex-basis: 100%;
-        margin-bottom: 10px;
-      }
-
-      .api-link {
-        text-decoration: none;
-        margin-bottom: 10px;
-        color: $linkColor;
-        cursor: pointer;
-      }
-
-      .api-description {
-        width: 80%;
-        font-size: 0.9rem;
-
-        @media (max-width: 760px) {
-          font-size: 0.7rem;
-        }
-      }
-    }
-
-    .fonts {
-      span {
-        flex-basis: 100%;
-      }
-    }
-  }
-
-  .introduction {
-    width: 40%;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-
-    section {
-      flex-basis: 100%;
-    }
-
-    .developer-button {
-      background: #261f53;
-      padding: 20px;
-      margin-bottom: 20px;
-      border-radius: 20px;
-      border: 2px solid #834d9c;
-      box-shadow: invert 0 0 10px #834d9c;
-      color: whitesmoke;
-      font-size: 1rem;
-      transition: all 0.2s ease-in-out;
-
-      &.active {
-        background: #834d9c;
-        box-shadow: 0 0 10px #834d9c;
-      }
-
-      &:focus {
-        outline: none;
-      }
-
-      &:hover {
-        background: #834d9c;
-        transition: all 0.2s ease-in-out;
-      }
-    }
-
-    @media (max-width: 1500px) {
-      width: 60%;
-    }
-
-    @media (max-width: 760px) {
-      width: 90%;
-      font-size: 0.7rem;
-    }
-  }
-
-  .intro-section {
-    p {
-      margin: 30px 0 30px 0;
-    }
-
-    @media (max-width: 760px) {
-      margin-top: 100px;
-    }
-  }
-
-  .developer-section {
-    text-align: center;
-    margin-bottom: 40px;
+  .dev-section {
+    animation: fadeIn 0.5s ease-in-out;
   }
 
   .walkthrough {
-    margin-bottom: 50px;
-
-    // .replacement {
-    //   color: rgb(0, 207, 45);
-    // }
-
-    .walkthrough-link {
-      text-decoration: none;
-      color: $linkColor;
-      cursor: pointer;
-      transition: all 0.2s ease-in-out;
-
-      &:hover {
-        text-shadow: 0 0 5px $linkColor;
-        transition: all 0.2s ease-in-out;
-      }
-    }
-
     .old {
-      // color: rgb(207, 0, 0);
       text-decoration: line-through;
-    }
-
-    p {
-      &.head-text {
-        margin-bottom: 10px;
-      }
-
-      &.sub-item {
-        margin-left: 20px;
-      }
     }
   }
 }

@@ -1,51 +1,41 @@
 <template>
-    <div id="sitemap">
-        <ul class="sitemap-list">
-            <h1 class="sitemap-header head-text">Sitemap</h1>
-            <li v-for="route in routes" :key="route.path">
-                <router-link :to="route.path">{{ route.name }}</router-link>
-            </li>
-        </ul>
-    </div>
+  <div id="sitemap" class="container page">
+    <ul>
+      <h1 class="spacing head-text">Sitemap</h1>
+      <li v-for="route in routes" :key="route.path">
+        <router-link class="link" :to="route.path">{{
+          route.name
+        }}</router-link>
+      </li>
+    </ul>
+  </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, onMounted } from "vue";
 import VueRouterSitemap from "vue-router-sitemap";
-import router from "@/router"
+import router from "@/router";
 
 export default defineComponent({
-    setup() {
-        const sitemap = new VueRouterSitemap(router).build('http://example.com');
+  name: "SiteMap",
+  setup() {
+    onMounted(() => {
+      document.getElementById("main-content")?.scrollIntoView();
+    });
 
-        document.getElementById("sitemap")
+    // generates a sitemap for the application
+    const sitemap = new VueRouterSitemap(router).build("");
 
-        return {
-            routes: sitemap.paths
-        }
-    }
-})
+    return {
+      routes: sitemap.paths
+    };
+  }
+});
 </script>
 
 <style lang="scss" scoped>
 #sitemap {
-    display: flex;
-    width: 100%;
-    min-height: calc(100vh - 75px);
-    justify-content: center;
-    text-align: left;
-    flex-wrap: wrap;
-
-    .sitemap-header {
-        width: 100%;
-        margin: 20px 0 20px 0;
-        text-align: center;
-    }
-
-    a {
-        &:hover {
-            color: rgba(131, 77 ,156);
-        }
-    }
+  text-align: left;
+  align-items: flex-start;
 }
 </style>

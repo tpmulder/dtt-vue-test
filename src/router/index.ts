@@ -18,6 +18,11 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import("../views/Randomize.vue")
   },
   {
+    path: "/feedback",
+    name: "Feedback",
+    component: () => import("../views/Feedback.vue")
+  },
+  {
     path: "/character/:id",
     name: "Character",
     component: () => import("../views/Character.vue"),

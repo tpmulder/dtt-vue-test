@@ -7,13 +7,17 @@ import { library } from "@fortawesome/fontawesome-svg-core";
 import {
   faArrowRight,
   faChevronLeft,
-  faChevronRight
+  faChevronRight,
+  faSortUp,
+  faSortDown
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
 library.add(faArrowRight);
 library.add(faChevronLeft);
 library.add(faChevronRight);
+library.add(faSortUp);
+library.add(faSortDown);
 
 createApp(App)
   .use(store)

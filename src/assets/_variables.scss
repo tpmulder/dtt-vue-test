@@ -1,0 +1,28 @@
+// ||----------COLOURS----------||
+$primary-color: #261f53;
+$secondary-color: #9985cf;
+
+$color-1: #834d9c;
+$color-2: #282e86;
+$color-3: #462e46;
+$color-4: #080927;
+
+// ||----------TEXT COLOURS----------||
+$text-light: whitesmoke;
+$text-dark: $color-4;
+
+// ||----------TEXT FONTS----------||
+$head-font: "Montserrat", sans-serif;
+$normal-font: "Courier Prime", monospace;
+
+// ||----------FONT SIZES----------||
+$normal-font-size: 1.1rem;
+$tablet-font-size: 1rem;
+$mobile-font-size: 0.8rem;
+
+// ||----------UTILS---------||
+$invis: rgba(0, 0, 0, 0);
+
+// ||----------BREAKPOINTS---------||
+$mobile: 430px;
+$tablet: 760px;
